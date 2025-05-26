@@ -11,17 +11,22 @@ const models = {
         scale: '0.5 0.5 0.5',
         rotation: '-90 0 0'
     }
-    // Add more models here
 };
 
 function loadModel() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const modelName = window.location.pathname.split('/').pop() || 'fish'; // default to fish if no model specified
+    // Get model name from hash or default to fish
+    const modelName = window.location.hash.slice(1) || 'fish';
     
     const modelConfig = models[modelName];
     if (!modelConfig) {
         document.getElementById('instructions').innerHTML = 'Model not found!';
         return;
+    }
+
+    // Remove existing marker if any
+    const existingMarker = document.querySelector('a-marker');
+    if (existingMarker) {
+        existingMarker.remove();
     }
 
     const marker = document.createElement('a-marker');
@@ -37,3 +42,6 @@ function loadModel() {
     marker.appendChild(entity);
     document.querySelector('a-scene').appendChild(marker);
 }
+
+// Listen for hash changes to switch models
+window.addEventListener('hashchange', loadModel);
