@@ -1,13 +1,19 @@
+const getBasePath = () => {
+    // Get repository name from GitHub Pages URL or default to root
+    const repo = location.pathname.split('/')[1];
+    return location.hostname === 'localhost' ? '' : `/${repo}`;
+};
+
 const models = {
     'fish': {
-        model: './models3D/fish.glb',
-        pattern: './pattern/pattern-fishQR.patt',
+        model: `${getBasePath()}/models3D/fish.glb`,
+        pattern: `${getBasePath()}/pattern/pattern-fishQR.patt`,
         scale: '0.5 0.5 0.5',
         rotation: '-90 0 0'
     },
     'robot': {
-        model: './models3D/robot.glb',
-        pattern: './pattern/pattern-robotQR.patt',
+        model: `${getBasePath()}/models3D/robot.glb`,
+        pattern: `${getBasePath()}/pattern/pattern-robotQR.patt`,
         scale: '0.2 0.2 0.2',
         rotation: '-90 0 0'
     }
