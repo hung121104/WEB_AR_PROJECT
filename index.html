@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebAR Models</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="./js/model-loader.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      #instructions {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-family: sans-serif;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body onload="loadModel()">
+    <div id="instructions">Cho phép sử dụng camera, sau đó hướng camera vào mã QR.</div>
+    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
