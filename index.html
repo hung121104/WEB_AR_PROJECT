@@ -19,36 +19,10 @@
         font-family: sans-serif;
         z-index: 10;
       }
-      #model-switcher {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-        background: rgba(0,0,0,0.7);
-        padding: 10px;
-        border-radius: 5px;
-      }
-      #model-switcher a {
-        color: white;
-        text-decoration: none;
-        margin: 0 10px;
-        padding: 5px 10px;
-        border: 1px solid white;
-        border-radius: 3px;
-      }
-      #model-switcher a.active {
-        background: white;
-        color: black;
-      }
     </style>
   </head>
-  <body onload="loadModel()">
+  <body>
     <div id="instructions">Cho phép camera, sau đó hướng camera vào mã QR.</div>
-    <div id="model-switcher">
-      <a href="#fish">Fish</a>
-      <a href="#robot">Robot</a>
-    </div>
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
       <a-entity camera></a-entity>
     </a-scene>
