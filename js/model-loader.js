@@ -7,41 +7,40 @@ const models = {
     },
     'robot': {
         model: './models3D/robot.glb',
-        pattern: '.pattern/pattern-robotQR.patt',
+        pattern: './pattern/pattern-robotQR.patt',
         scale: '0.2 0.2 0.2',
         rotation: '-90 0 0'
     }
 };
 
-function loadModel() {
-    // Get model name from hash or default to fish
-    const modelName = window.location.hash.slice(1) || 'fish';
-    
-    const modelConfig = models[modelName];
-    if (!modelConfig) {
-        document.getElementById('instructions').innerHTML = 'Model not found!';
-        return;
-    }
+function loadModels() {
+    // Clear existing markers
+    const existingMarkers = document.querySelectorAll('a-marker');
+    existingMarkers.forEach(marker => marker.remove());
 
-    // Remove existing marker if any
-    const existingMarker = document.querySelector('a-marker');
-    if (existingMarker) {
-        existingMarker.remove();
-    }
+    // Create markers with lazy loading of models
+    Object.entries(models).forEach(([name, config]) => {
+        const marker = document.createElement('a-marker');
+        marker.setAttribute('type', 'pattern');
+        marker.setAttribute('url', config.pattern);
+        marker.id = `marker-${name}`;
 
-    const marker = document.createElement('a-marker');
-    marker.setAttribute('type', 'pattern');
-    marker.setAttribute('url', modelConfig.pattern);
+        // Load model only when marker is found
+        marker.addEventListener('markerFound', () => {
+            if (!marker.hasLoaded) {
+                const entity = document.createElement('a-entity');
+                entity.setAttribute('gltf-model', config.model);
+                entity.setAttribute('scale', config.scale);
+                entity.setAttribute('rotation', config.rotation);
+                entity.setAttribute('position', '0 0 0');
+                marker.appendChild(entity);
+                marker.hasLoaded = true;
+            }
+        });
 
-    const entity = document.createElement('a-entity');
-    entity.setAttribute('gltf-model', modelConfig.model);
-    entity.setAttribute('scale', modelConfig.scale);
-    entity.setAttribute('rotation', modelConfig.rotation);
-    entity.setAttribute('position', '0 0 0');
-
-    marker.appendChild(entity);
-    document.querySelector('a-scene').appendChild(marker);
+        document.querySelector('a-scene').appendChild(marker);
+    });
 }
 
-// Listen for hash changes to switch models
-window.addEventListener('hashchange', loadModel);
+// Initialize all models on load
+window.addEventListener('load', loadModels);
