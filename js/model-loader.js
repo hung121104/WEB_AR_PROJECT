@@ -1,14 +1,14 @@
 const models = {
     'fish': {
         model: './models3D/fish.glb',
-        pattern: './pattern/fish-pattern-frame.patt',
+        pattern: './pattern/pattern-fishQR.patt',
         scale: '0.5 0.5 0.5',
         rotation: '-90 0 0'
     },
     'robot': {
         model: './models3D/robot.glb',
-        pattern: './pattern/fish-pattern-frame.patt',
-        scale: '0.5 0.5 0.5',
+        pattern: '.pattern/pattern-robotQR.patt',
+        scale: '0.2 0.2 0.2',
         rotation: '-90 0 0'
     }
 };
