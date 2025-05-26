@@ -18,26 +18,20 @@ function loadModels() {
     const existingMarkers = document.querySelectorAll('a-marker');
     existingMarkers.forEach(marker => marker.remove());
 
-    // Create markers with lazy loading of models
+    // Create a marker and entity for each model
     Object.entries(models).forEach(([name, config]) => {
         const marker = document.createElement('a-marker');
         marker.setAttribute('type', 'pattern');
         marker.setAttribute('url', config.pattern);
         marker.id = `marker-${name}`;
 
-        // Load model only when marker is found
-        marker.addEventListener('markerFound', () => {
-            if (!marker.hasLoaded) {
-                const entity = document.createElement('a-entity');
-                entity.setAttribute('gltf-model', config.model);
-                entity.setAttribute('scale', config.scale);
-                entity.setAttribute('rotation', config.rotation);
-                entity.setAttribute('position', '0 0 0');
-                marker.appendChild(entity);
-                marker.hasLoaded = true;
-            }
-        });
+        const entity = document.createElement('a-entity');
+        entity.setAttribute('gltf-model', config.model);
+        entity.setAttribute('scale', config.scale);
+        entity.setAttribute('rotation', config.rotation);
+        entity.setAttribute('position', '0 0 0');
 
+        marker.appendChild(entity);
         document.querySelector('a-scene').appendChild(marker);
     });
 }
