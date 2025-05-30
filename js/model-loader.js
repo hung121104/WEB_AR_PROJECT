@@ -2,11 +2,11 @@ const getBasePath = () => {
     const repo = location.pathname.split('/')[1];
     return location.hostname === 'localhost' ? '' : `/${repo}`;
 };
-
+//
 const models = {
     'fish': {
-        model: `${getBasePath()}models3D/earth_globe_hologram_2mb_looping_animation/scene.gltf`,
-        pattern: `${getBasePath()}pattern/pattern-fishQR.patt`,
+        model: `${getBasePath()}/models3D/earth_globe_hologram_2mb_looping_animation/scene.gltf`,
+        pattern: `${getBasePath()}/pattern/pattern-fishQR.patt`,
         scale: '0.5 0.5 0.5',
         rotation: '0 0 0',
         position: '0 0 0',
@@ -18,8 +18,8 @@ const models = {
         }
     },
     'robot': {
-        model: `${getBasePath()}models3D/robot.glb`,
-        pattern: `${getBasePath()}pattern/pattern-robotQR.patt`,
+        model: `${getBasePath()}/models3D/robot.glb`,
+        pattern: `${getBasePath()}/pattern/pattern-robotQR.patt`,
         scale: '0.2 0.2 0.2',
         rotation: '-90 0 0',
         position: '0 0 0',
