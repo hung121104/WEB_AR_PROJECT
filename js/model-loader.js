@@ -1,8 +1,21 @@
 const getBasePath = () => {
-    const repo = location.pathname.split('/')[1];
-    return location.hostname === 'localhost' ? '' : `/${repo}`;
+    // Get the repository name from the path
+    const pathSegments = window.location.pathname.split('/');
+    const repoName = pathSegments[1];
+    
+    // Handle both localhost and GitHub Pages
+    if (window.location.hostname === 'localhost') {
+        return '';
+    } else if (repoName === '') {
+        // If deployed at root level
+        return '';
+    } else {
+        // If deployed in a subdirectory (like GitHub Pages)
+        return `/${repoName}`;
+    }
 };
-//
+
+// Update models object to use the correct paths
 const models = {
     'fish': {
         model: `${getBasePath()}/models3D/earth_globe_hologram_2mb_looping_animation/scene.gltf`,
